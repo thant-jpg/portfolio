@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import ParallaxHero from '../components/ParallaxHero.jsx'
+import { getCollection } from 'astro:content'
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+)
+---
+
+<Base title="Portfolio">
+  <Nav />
+
+  <!-- Hero with acetate cover feel -->
+  <div class="acetate">
+    <ParallaxHero client:load />
+  </div>
+
+  <!-- Zip-a-Tone strip divider -->
+  <div class="zipatone h-2 opacity-30"></div>
+
+  <main class="max-w-4xl mx-auto px-8 md:px-12">
+    <!-- Section header -->
+    <div class="pt-20 pb-4 text-center">
+      <div class="ornament pb-4">&mdash;&ensp;&sect;&ensp;&mdash;</div>
+      <h2
+        class="text-base text-[var(--color-ink)] smallcaps"
+        style="font-family: var(--font-serif);"
+      >
+        Selected Work
+      </h2>
+    </div>
+    <hr class="rule mb-12" />
+
+    <!-- Project grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 pb-8">
+      {projects.map((project, i) => (
+        <ProjectCard
+          title={project.data.title}
+          slug={project.id}
+          cover={project.data.cover}
+          category={project.data.category}
+          year={project.data.year}
+          index={i}
+        />
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Base>

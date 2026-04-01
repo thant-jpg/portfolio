@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "EB Garamond", "Garamond", "Georgia", serif;
+  --font-body: "EB Garamond", "Garamond", "Georgia", serif;
+  --font-sans: "EB Garamond", "Garamond", "Georgia", serif;
+
+  --color-paper: #f0efed;
+  --color-paper-light: #f5f4f2;
+  --color-ink: #2c2418;
+  --color-ink-light: #584a38;
+  --color-ink-faint: #8a7b66;
+  --color-rule: #c4b69e;
+  --color-rule-light: #d4c8b2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  position: relative;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  font-feature-settings: "onum" 1, "liga" 1;
+}
+
+/* Paper grain texture — heavier for old book feel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* Vignette — darkened page edges like an aged book */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(80, 60, 30, 0.12) 100%);
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Drop cap — ornate old-style */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 4.2em;
+  line-height: 0.75;
+  padding-right: 0.1em;
+  padding-top: 0.02em;
+  color: var(--color-ink);
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Thin ruled lines */
+.rule {
+  border: none;
+  border-top: 0.5px solid var(--color-rule);
+}
+
+.rule-dark {
+  border: none;
+  border-top: 1px solid var(--color-ink);
+}
+
+/* Ornamental divider — typographic fleuron */
+.ornament {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.5em;
+  line-height: 1;
+}
+
+/* Aged plate style for images */
+.plate {
+  background: var(--color-paper-light);
+  border: 1px solid var(--color-rule);
+  padding: 12px;
+  box-shadow: inset 0 0 20px rgba(80, 60, 30, 0.06);
+  position: relative;
+}
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(120, 95, 55, 0.04) 0%, transparent 40%, transparent 60%, rgba(120, 95, 55, 0.06) 100%);
+  mix-blend-mode: multiply;
+}
+.plate img {
+  filter: sepia(0.08) contrast(0.97) brightness(0.98);
+}
+
+/* Small caps utility */
+.smallcaps {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.08em;
+  font-size: 0.92em;
+}
+
+/* ─── 80s Portfolio Elements ─── */
+
+/* Screw-post binding holes — left edge */
+.binding-holes {
+  position: fixed;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 180px;
+  align-items: center;
+}
+.binding-hole {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-rule);
+  background: radial-gradient(circle at 40% 35%, var(--color-paper-light) 30%, var(--color-rule-light) 70%, var(--color-rule) 100%);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+  flex-shrink: 0;
+}
+
+/* Page border — thin drafting rule inside margins */
+.page-border {
+  position: fixed;
+  top: 20px;
+  left: 36px;
+  right: 20px;
+  bottom: 20px;
+  border: 0.5px solid var(--color-rule);
+  pointer-events: none;
+  z-index: 50;
+}
+.page-border::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 0.25px solid var(--color-rule-light);
+}
+
+/* Title block — drafting convention, bottom-right */
+.title-block {
+  position: relative;
+  border: 1px solid var(--color-ink);
+  padding: 10px 14px;
+  max-width: 220px;
+  margin-left: auto;
+  font-family: var(--font-serif);
+}
+.title-block::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 0.5px solid var(--color-ink);
+}
+.title-block-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+.title-block-label {
+  font-variant-caps: small-caps;
+  color: var(--color-ink-faint);
+  letter-spacing: 0.1em;
+}
+
+/* Zip-a-Tone dot screen pattern */
+.zipatone {
+  background-image: radial-gradient(circle, var(--color-rule) 0.5px, transparent 0.5px);
+  background-size: 6px 6px;
+}
+
+/* Acetate cover — frosted overlay */
+.acetate {
+  position: relative;
+}
+.acetate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(240, 239, 237, 0.35);
+  backdrop-filter: blur(0.5px);
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Hide binding holes and page border on small screens */
+@media (max-width: 768px) {
+  .binding-holes { display: none; }
+  .page-border { display: none; }
+}

@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Base title="About — Portfolio">
+  <Nav />
+
+  <main class="pt-24 max-w-4xl mx-auto px-8 md:px-12">
+    <div class="pt-8">
+      <!-- Page title -->
+      <div class="text-center mb-12">
+        <p class="ornament mb-4">&mdash;&ensp;&sect;&ensp;&mdash;</p>
+        <h1 class="text-4xl md:text-5xl" style="font-family: var(--font-serif); font-style: italic;">
+          About the Author
+        </h1>
+        <hr class="rule mt-8 max-w-xs mx-auto" />
+      </div>
+
+      <!-- Two-column layout like a book spread -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+        <!-- Main text -->
+        <div class="md:col-span-7">
+          <div class="drop-cap text-lg leading-[1.9] text-[var(--color-ink-light)] space-y-6" style="font-family: var(--font-body);">
+            <p>
+              Edit this page to add your bio. You can also edit it through the CMS at <code class="text-sm bg-[var(--color-paper-light)] px-1.5 py-0.5 border border-[var(--color-rule-light)]" style="font-family: var(--font-body);">/admin</code>.
+            </p>
+            <p>
+              Talk about your background, interests, design philosophy, and what kind of work you are looking for. This text is set in EB Garamond to give it the feel of a printed page.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="md:col-span-4 md:col-start-9 space-y-10">
+          <div>
+            <h3 class="text-sm text-[var(--color-ink-faint)] smallcaps mb-3" style="font-family: var(--font-serif);">
+              Education
+            </h3>
+            <hr class="rule mb-3" />
+            <p class="text-sm leading-relaxed text-[var(--color-ink-light)]" style="font-family: var(--font-body); font-style: italic;">
+              Your University<br />
+              B.Arch / M.Arch
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-sm text-[var(--color-ink-faint)] smallcaps mb-3" style="font-family: var(--font-serif);">
+              Contact
+            </h3>
+            <hr class="rule mb-3" />
+            <a
+              href="mailto:hello@example.com"
+              class="text-sm text-[var(--color-ink-light)] hover:text-[var(--color-ink)] transition-colors"
+              style="font-family: var(--font-body); font-style: italic;"
+            >
+              hello@example.com
+            </a>
+          </div>
+
+          <div>
+            <h3 class="text-sm text-[var(--color-ink-faint)] smallcaps mb-3" style="font-family: var(--font-serif);">
+              Links
+            </h3>
+            <hr class="rule mb-3" />
+            <div class="space-y-1.5" style="font-family: var(--font-body); font-style: italic;">
+              <a href="#" class="block text-sm text-[var(--color-ink-light)] hover:text-[var(--color-ink)] transition-colors">LinkedIn</a>
+              <a href="#" class="block text-sm text-[var(--color-ink-light)] hover:text-[var(--color-ink)] transition-colors">Instagram</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Colophon -->
+      <div class="mt-32 pt-8 border-t border-[var(--color-rule)]">
+        <h3 class="text-sm text-[var(--color-ink-faint)] smallcaps mb-4" style="font-family: var(--font-serif);">
+          Colophon
+        </h3>
+        <p class="text-sm leading-relaxed text-[var(--color-ink-faint)] max-w-lg" style="font-family: var(--font-body); font-style: italic;">
+          This portfolio is set entirely in <em>EB Garamond</em>, a revival of Claude Garamont's sixteenth-century types.
+          Built with Astro. Hosted on Netlify.
+          Designed and developed by the author.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Base>

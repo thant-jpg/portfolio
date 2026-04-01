@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import { getCollection, render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects')
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, index: i },
+  }))
+}
+
+const { project, index } = Astro.props
+const { Content } = await render(project)
+const { title, category, year, cover, images, description } = project.data
+const allImages = images && images.length > 0 ? images : [cover]
+const num = String(index + 1).padStart(2, '0')
+---
+
+<Base title={`${title} — Portfolio`} description={description}>
+  <Nav />
+
+  <main class="pt-24 max-w-4xl mx-auto px-8 md:px-12">
+    <!-- Project header — title page style -->
+    <div class="pt-8 pb-10 text-center">
+      <p class="text-sm text-[var(--color-ink-faint)] tracking-widest mb-6 smallcaps" style="font-family: var(--font-serif);">
+        Plate {num}
+      </p>
+
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4"
+        style="font-family: var(--font-serif); font-style: italic;"
+      >
+        {title}
+      </h1>
+
+      <div class="flex items-center justify-center gap-4 max-w-xs mx-auto mt-6 mb-4">
+        <hr class="flex-1 rule" />
+        <span class="text-[var(--color-ink-faint)]" style="font-family: var(--font-serif);">&loz;</span>
+        <hr class="flex-1 rule" />
+      </div>
+
+      <p class="text-sm text-[var(--color-ink-faint)]" style="font-family: var(--font-serif); font-style: italic;">
+        {category}, {year}
+      </p>
+    </div>
+
+    <hr class="rule mb-12" />
+
+    <!-- Description with drop cap -->
+    <div class="max-w-2xl mx-auto mb-16">
+      <div class="drop-cap text-lg leading-[1.9] text-[var(--color-ink-light)]" style="font-family: var(--font-body);">
+        <Content />
+      </div>
+    </div>
+
+    <!-- Images as plates -->
+    <div class="space-y-12 mb-16">
+      {allImages.map((img: string, i: number) => (
+        <figure>
+          <div class="plate">
+            <img src={img} alt={`${title} — ${i + 1}`} class="w-full" loading="lazy" />
+          </div>
+          <figcaption class="mt-3 text-center text-sm text-[var(--color-ink-faint)]" style="font-family: var(--font-serif); font-style: italic;">
+            Fig. {i + 1}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <!-- Drafting title block -->
+    <div class="mt-12 mb-8">
+      <div class="title-block">
+        <div class="title-block-row" style="border-bottom: 0.5px solid var(--color-rule); padding-bottom: 4px; margin-bottom: 4px;">
+          <span class="title-block-label">Project</span>
+          <span>{title}</span>
+        </div>
+        <div class="title-block-row">
+          <span class="title-block-label">Type</span>
+          <span>{category}</span>
+        </div>
+        <div class="title-block-row">
+          <span class="title-block-label">Date</span>
+          <span>{year}</span>
+        </div>
+        <div class="title-block-row">
+          <span class="title-block-label">Sheet</span>
+          <span>A-{num}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornament py-4">&mdash;&ensp;&bull;&ensp;&mdash;</div>
+
+    <!-- Back link -->
+    <div class="text-center mb-16">
+      <a
+        href="/"
+        class="inline-block text-sm text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
+        style="font-family: var(--font-serif); font-style: italic;"
+      >
+        &larr; Return to all work
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Base>

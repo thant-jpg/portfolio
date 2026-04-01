@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string
+  slug: string
+  cover: string
+  category: string
+  year: string
+  index: number
+}
+
+const { title, slug, cover, category, year, index } = Astro.props
+const num = String(index + 1).padStart(2, '0')
+---
+
+<a href={`/projects/${slug}`} class="group block">
+  <!-- Image as aged plate -->
+  <div class="plate">
+    <div class="aspect-[4/3] overflow-hidden">
+      <img
+        src={cover}
+        alt={title}
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  <!-- Caption, like a figure reference in an old book -->
+  <div class="mt-4 text-center">
+    <p class="text-xs text-[var(--color-ink-faint)] tracking-widest mb-1 smallcaps">
+      Plate {num}
+    </p>
+    <h3
+      class="text-lg group-hover:text-[var(--color-ink-light)] transition-colors"
+      style="font-family: var(--font-serif); font-style: italic;"
+    >
+      {title}
+    </h3>
+    <p class="text-sm text-[var(--color-ink-faint)] mt-0.5" style="font-family: var(--font-serif); font-style: italic;">
+      {category}, {year}
+    </p>
+  </div>
+</a>

@@ -1,0 +1,33 @@
+---
+const currentPath = Astro.url.pathname
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-[var(--color-rule)]" style="background: var(--color-paper);">
+  <div class="max-w-4xl mx-auto px-8 md:pl-16 md:pr-12 h-14 flex items-center justify-between">
+    <a href="/" class="text-lg tracking-wide text-[var(--color-ink)]" style="font-family: var(--font-serif); font-variant-caps: small-caps; letter-spacing: 0.1em;">
+      Portfolio
+    </a>
+    <div class="flex gap-8">
+      <a
+        href="/"
+        class:list={[
+          'text-sm tracking-wide transition-colors',
+          currentPath === '/' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink-light)]'
+        ]}
+        style="font-family: var(--font-serif); font-variant-caps: small-caps; letter-spacing: 0.1em;"
+      >
+        Work
+      </a>
+      <a
+        href="/about"
+        class:list={[
+          'text-sm tracking-wide transition-colors',
+          currentPath === '/about/' || currentPath === '/about' ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink-light)]'
+        ]}
+        style="font-family: var(--font-serif); font-variant-caps: small-caps; letter-spacing: 0.1em;"
+      >
+        About
+      </a>
+    </div>
+  </div>
+</nav>
